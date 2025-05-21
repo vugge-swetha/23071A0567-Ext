@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta  charset="UTF-8">
+<meta  name="viewport"  content="width=device-width,  initial-scale=1.0">
+<title>GreenGo - Cart</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+<nav class="navbar">
+<a href="index.html" class="brand">Greenify</a>
+<ul class="nav-links">
+<li><a href="catalog.html">Catalog</a></li>
+<li><a href="cart.html">Cart</a></li>
+ 
+
+
+
+<li><a href="login.html">Login</a></li>
+</ul>
+</nav>
+</header>
+
+<!-- Cart Items Section -->
+<section  class="cart-items">
+<h2>Your Cart</h2>
+<div class="cart-item">
+<img src="https://media.istockphoto.com/id/1334790507/vector/3d-vector-floor- house-green-plant-palm-in-white-pot-isolated-on-white-illustration- icon.jpg?s=612x612&w=0&k=20&c=dGsYtSp66z31VWTzpwtlZJCDHvbfieGwDSa    rgtfyTxY=" alt="Plant Image" class="cart-item-image">
+<div  class="cart-item-details">
+<h3>Plant Name</h3>
+<p>Price: $20.00</p>
+<div  class="cart-item-actions">
+<button  class="remove-item">Remove</button>
+<input type="number" name="quantity" value="1" min="1" class="item- quantity"/>
+</div>
+</div>
+</div>
+<div class="cart-item">
+<img src="https://media.istockphoto.com/id/1334790507/vector/3d-vector-floor- house-green-plant-palm-in-white-pot-isolated-on-white-illustration- icon.jpg?s=612x612&w=0&k=20&c=dGsYtSp66z31VWTzpwtlZJCDHvbfieGwDSa    rgtfyTxY=" alt="Plant Image" class="cart-item-image">
+<div  class="cart-item-details">
+ 
+<h3>Plant Name</h3>
+<p>Price: $25.00</p>
+<div  class="cart-item-actions">
+<button  class="remove-item">Remove</button>
+<input type="number" name="quantity" value="1" min="1" class="item- quantity"/>
+</div>
+</div>
+</div>
+
+<!-- Cart Total Section -->
+<div class="cart-total">
+<h3>Total: $45.00</h3>
+<button class="checkout-btn">Proceed to Checkout</button>
+</div>
+</section>
+
+<footer class="footer">
+<p>&copy; 2025 GreenGo - All rights reserved.</p>
+</footer>
+<script>
+    const cartItemsContainer = document.querySelector('.cart-items');
+    const cartTotal = document.querySelector('.cart-total h3');
+    
+    // Load cart from localStorage
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    function renderCart() {
+      cartItemsContainer.innerHTML = '<h2>Your Cart</h2>';
+      let total = 0;
+    
+      cart.forEach((item, index) => {
+        total += item.price * item.quantity;
+        cartItemsContainer.innerHTML += `
+          <div class="cart-item">
+            <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+            <div class="cart-item-details">
+              <h3>${item.name}</h3>
+              <p>Price: $${item.price.toFixed(2)}</p>
+              <div class="cart-item-actions">
+                <button class="remove-item" data-index="${index}">Remove</button>
+                <input type="number" min="1" value="${item.quantity}" class="item-quantity" data-index="${index}" />
+              </div>
+            </div>
+          </div>`;
+      });
+    
+      // Render total and checkout button
+      cartItemsContainer.innerHTML += `
+        <div class="cart-total">
+          <h3>Total: $${total.toFixed(2)}</h3>
+          <button class="checkout-btn">Proceed to Checkout</button>
+        </div>
+      `;
+    
+      // Event listeners for remove buttons
+      document.querySelectorAll('.remove-item').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const index = e.target.getAttribute('data-index');
+          cart.splice(index, 1);
+          localStorage.setItem('cart', JSON.stringify(cart));
+          renderCart(); // Re-render cart
+        });
+      });
+    
+      // Event listeners for quantity changes
+      document.querySelectorAll('.item-quantity').forEach(input => {
+        input.addEventListener('change', (e) => {
+          const index = e.target.getAttribute('data-index');
+          const newQuantity = parseInt(e.target.value);
+          if (newQuantity > 0) {
+            cart[index].quantity = newQuantity;
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart(); // Re-render cart
+          }
+        });
+      });
+    }
+    
+    renderCart();
+    </script>
+    
+</body>
+</html>

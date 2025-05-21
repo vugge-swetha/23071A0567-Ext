@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta  charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial- scale=1.0">
+<title>GreenGo - Catalog</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+<nav class="navbar">
+<a href="index.html" class="brand">GreenGo
+
+</a>
+<ul class="nav-links">
+<li><a href="catalog.html">Catalog</a></li>
+<li><a href="cart.html">Cart</a></li>
+ 
+<li><a href="login.html">Login</a></li>
+</ul>
+</nav>
+</header>
+
+<!-- Catalog Section -->
+<section  class="product-list">
+<div  class="product-card">
+<img src="https://www.shutterstock.com/image-photo/young-plant-growth-spouts-on-260nw-2510787589.jpg" alt="Plant Image" class="product-image">
+<h3>Plant 1</h3>
+<p>$15.00</p>
+<button class="add-to-cart">Add to Cart</button>
+</div>
+
+<div  class="product-card">
+<img src="https://media.istockphoto.com/id/469538141/photo/plant-sprouting-from-the-dirt-with-a-blurred-background.jpg?s=612x612&w=0&k=20&c=uc-WaLHzRlsrBsHrTVO4fEqRqPjkh-MHtlGLj-QWI64=" alt="Plant Image" class="product-image">
+<h3>Plant 2</h3>
+<p>$20.00</p>
+<button class="add-to-cart">Add to Cart</button>
+</div>
+
+<div  class="product-card">
+<img src="https://gachwala.in/wp-content/uploads/2022/06/IMAGE-1-13.webp" alt="Plant Image" class="product-image">
+<h3>Plant 3</h3>
+<p>$30.00</p>
+<button class="add-to-cart">Add to Cart</button>
+</div>
+
+<div  class="product-card">
+<img src="https://content.jdmagicbox.com/comp/ahmedabad/j9/079pxx79.xx79.211022142123.d1j9/catalogue/grow-green-ahmedabad-plant-manufacturers-tmu97ajadl.jpg" alt="Plant Image" class="product-image">
+ 
+
+
+
+<h3>Plant 4</h3>
+<p>$25.00</p>
+<button class="add-to-cart">Add to Cart</button>
+</div>
+</section>
+
+<footer class="footer">
+<p>&copy; 2025 GreenGo - All rights reserved.</p>
+</footer>
+<script>
+const  addToCartButtons  =  document.querySelectorAll('.add-to-cart');
+
+addToCartButtons.forEach((button) => { button.addEventListener('click', () => { const productCard = button.parentElement;
+const productName = productCard.querySelector('h3').innerText;
+const productPrice = productCard.querySelector('p').innerText; const productImage = productCard.querySelector('img').src;
+
+const product = { name: productName,
+price: parseFloat(productPrice.replace('$', '')), image: productImage,
+quantity: 1
+};
+
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+ 
+// Check if product already exists in cart
+const existingProduct = cart.find(item => item.name === product.name); if (existingProduct) {
+existingProduct.quantity += 1;
+} else { cart.push(product);
+}
+localStorage.setItem('cart', JSON.stringify(cart)); alert(`${product.name} added to cart!`);
+});
+});
+</script>
+</body>
+</html>

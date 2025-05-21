@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GreenGo - Login</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 5px;
+  }
+</style>
+</head>
+<body>
+<header>
+  <nav class="navbar">
+    <a href="index.html" class="brand">GreenGo</a>
+    <ul class="nav-links">
+      <li><a href="catalog.html">Catalog</a></li>
+      <li><a href="cart.html">Cart</a></li>
+      <li><a href="login.html">Login</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="form-section">
+  <div class="form-container">
+    <h2>Welcome Back to GreenGo</h2>
+    <form id="login-form">
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        <div id="email-error" class="error-message"></div>
+      </div>
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required minlength="6">
+        <div id="password-error" class="error-message"></div>
+      </div>
+      <button type="submit" class="submit-btn">Login</button>
+      <p class="redirect-link">Don't have an account? <a href="register.html">Register here</a></p>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>&copy; 2025 GreenGo - All rights reserved.</p>
+</footer>
+
+<script>
+document.getElementById("login-form").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  // Clear previous error messages
+  document.getElementById("email-error").textContent = "";
+  document.getElementById("password-error").textContent = "";
+
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+  let isValid = true;
+
+  // Email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    document.getElementById("email-error").textContent = "Please enter a valid email address.";
+    isValid = false;
+  }
+
+  // Password constraint
+  if (password.length < 6) {
+    document.getElementById("password-error").textContent = "Password must be at least 6 characters long.";
+    isValid = false;
+  }
+
+  if (isValid) {
+    alert("Login successful! Redirecting to Home Page...");
+    window.location.href = "index.html";
+  }
+});
+</script>
+</body>
+</html>
